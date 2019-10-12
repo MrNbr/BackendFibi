@@ -3,7 +3,7 @@ package com.fibi.fibi.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.sql.Date;
+import java.util.Date;
 
 @Entity
 @Table(name = "training", uniqueConstraints = @UniqueConstraint(columnNames = {"user_id_professor", "user_id_student"}))
@@ -27,14 +27,24 @@ public class Training {
     @NotNull
     int price;
 
-    /*
-    @Basic
-    private java.sql.Date date;
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "aula")
+    Aula aula;
 
-    @Basic
-    private java.sql.Date time;
+    public Aula getAula() {
+        return aula;
+    }
 
-     */
+    public void setAula(Aula aula) {
+        this.aula = aula;
+    }
+
+    @Temporal(TemporalType.DATE)
+    private java.util.Date date;
+
+    @Temporal(TemporalType.TIME)
+    private java.util.Date time;
 
     @NotNull
     @ManyToOne
@@ -73,7 +83,6 @@ public class Training {
         this.price = price;
     }
 
-    /*
     public Date getDate() {
         return date;
     }
@@ -89,8 +98,6 @@ public class Training {
     public void setTime(Date time) {
         this.time = time;
     }
-
-     */
 
     public Assignment getAssignment() {
         return assignment;

@@ -11,7 +11,10 @@ import javax.validation.Valid;
 import java.io.Serializable;
 import com.fibi.fibi.model.Training;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -28,6 +31,9 @@ public class TrainingController implements Serializable {
 
     @Autowired
     AssignmentRepository assignmentRepository;
+
+    @Autowired
+    AulaRepository aulaRepository;
 
     @GetMapping
     public List<TrainingDto> getAllTrainings() {
@@ -51,12 +57,33 @@ public class TrainingController implements Serializable {
         training.setAssignment(assignmentRepository.findById(trainingDto.getAssignment()).get());
         training.setUserProfessor(userRepository.findById(trainingDto.getProfessorId()).get());
         training.setUserStudent(userRepository.findById(trainingDto.getStudentId()).get());
+        training.setDate(parseDate(trainingDto.getDate()));
+        training.setTime(parseTime(trainingDto.getTime()));
+        training.setAula(aulaRepository.findById(trainingDto.getAula()).get());
         return training;
     }
 
 
     private TrainingDto createTransferObject(Training t) {
-        return new TrainingDto(t.getTrainid(), t.getUserProfessor().getUserId(), t.getUserStudent().getUserId(), t.getPrice(), t.getAssignment().getAssignmentName());
+        String date = t.getDate().toString();
+        String time = t.getTime().toString();
+        return new TrainingDto(t.getTrainid(), t.getUserProfessor().getUserId(), t.getUserStudent().getUserId(), t.getPrice(), t.getAssignment().getAssignmentName(), t.getAula().getAula(), date, time);
+    }
+
+    private Date parseDate(String date) {
+        try {
+            return new SimpleDateFormat("dd/MM/yy").parse(date);
+        } catch (ParseException e) {
+            return null;
+        }
+    }
+
+    private Date parseTime(String time) {
+        try {
+            return new SimpleDateFormat("HH:mm:ss").parse(time);
+        } catch (ParseException e) {
+            return null;
+        }
     }
 
 
