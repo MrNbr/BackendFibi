@@ -57,7 +57,7 @@ public class TrainAdController {
 
     private TrainAdDto createTransferObject(TrainAd t) {
         String date = t.getDate().toString();
-        String time = t.getDate().toString();
+        String time = t.getTime().toString();
         return new TrainAdDto(t.getTrainid(), t.getUserCreator().getUserId(), date, time, t.getAula().getAula(), t.getPrice());
     }
 
