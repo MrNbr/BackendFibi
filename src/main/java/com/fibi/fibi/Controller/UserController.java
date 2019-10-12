@@ -38,7 +38,7 @@ public class UserController {
         return userRepository.save(user);
     }
 
-    @GetMapping
+    @PostMapping
     @RequestMapping("/login")
     public User login(@Valid @RequestBody Map<String, String> values) {
         List<User> users = userRepository.findAll();
