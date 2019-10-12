@@ -3,15 +3,21 @@ package com.fibi.fibi.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "training", uniqueConstraints = @UniqueConstraint(columnNames = {"user_id_professor", "user_id_student"}))
-public class Training {
+@Table(name = "training", uniqueConstraints = @UniqueConstraint(columnNames = {"train_id", "user_id_professor", "user_id_student"}))
+public class Training implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long trainid;
+    private long trainingSheduledId;
+
+    @NotNull
+    @OneToOne
+    @JoinColumn(name = "train_id")
+    private TrainAd trainid;
 
     @NotNull
     @ManyToOne
@@ -24,38 +30,19 @@ public class Training {
     @JoinColumn(name = "user_id_student")
     User userStudent;
 
-    @NotNull
-    int price;
-
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name = "aula")
-    Aula aula;
-
-    public Aula getAula() {
-        return aula;
+    public long getTrainingSheduledId() {
+        return trainingSheduledId;
     }
 
-    public void setAula(Aula aula) {
-        this.aula = aula;
+    public void setTrainingSheduledId(long trainingSheduledId) {
+        this.trainingSheduledId = trainingSheduledId;
     }
 
-    @Temporal(TemporalType.DATE)
-    private java.util.Date date;
-
-    @Temporal(TemporalType.TIME)
-    private java.util.Date time;
-
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name = "assignment")
-    private Assignment assignment;
-
-    public long getTrainid() {
+    public TrainAd getTrainid() {
         return trainid;
     }
 
-    public void setTrainid(long trainid) {
+    public void setTrainid(TrainAd trainid) {
         this.trainid = trainid;
     }
 
@@ -73,37 +60,5 @@ public class Training {
 
     public void setUserStudent(User userStudent) {
         this.userStudent = userStudent;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public Date getTime() {
-        return time;
-    }
-
-    public void setTime(Date time) {
-        this.time = time;
-    }
-
-    public Assignment getAssignment() {
-        return assignment;
-    }
-
-    public void setAssignment(Assignment assignment) {
-        this.assignment = assignment;
     }
 }
