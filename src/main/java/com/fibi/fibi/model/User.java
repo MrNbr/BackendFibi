@@ -3,6 +3,8 @@ package com.fibi.fibi.model;
 import org.springframework.context.annotation.ComponentScan;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -27,9 +29,12 @@ public class User implements Serializable {
     @Column(name = "email", unique = true)
     private String email;
 
+    @Min(0)
     @Column(name = "koins")
     private Long koins;
 
+    @Min(0)
+    @Max(5)
     @Column(name = "reputation")
     @NotNull
     private double reputation;

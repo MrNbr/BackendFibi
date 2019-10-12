@@ -40,6 +40,9 @@ public class TrainingController implements Serializable {
 
     @PostMapping
     public TrainingDto scheduleTraining(@Valid @RequestBody TrainingDto trainingDto) {
+        if(trainingDto.getProfessorId() == trainingDto.getStudentId()) {
+            return null;
+        }
         Training t = trainingRepository.save(createPersistentObject(trainingDto));
         TrainAd tAd = t.getTrainid();
         int price = tAd.getPrice();

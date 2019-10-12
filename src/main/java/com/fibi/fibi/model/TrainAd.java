@@ -1,6 +1,7 @@
 package com.fibi.fibi.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
@@ -12,6 +13,7 @@ public class TrainAd {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long trainid;
 
+    @Min(5)
     @NotNull
     int price;
 

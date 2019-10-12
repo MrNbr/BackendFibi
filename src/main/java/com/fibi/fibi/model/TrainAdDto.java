@@ -3,7 +3,7 @@ package com.fibi.fibi.model;
 public class TrainAdDto {
     private long trainId;
 
-    private long creatorId;
+    private long professorId;
 
     private String date;
 
@@ -22,11 +22,11 @@ public class TrainAdDto {
     }
 
     public long getCreatorId() {
-        return creatorId;
+        return professorId;
     }
 
     public void setCreatorId(long creatorId) {
-        this.creatorId = creatorId;
+        this.professorId = creatorId;
     }
 
     public String getDate() {
@@ -63,7 +63,7 @@ public class TrainAdDto {
 
     public TrainAdDto(long trainId, long creatorId, String date, String time, String aula, int price) {
         this.trainId = trainId;
-        this.creatorId = creatorId;
+        this.professorId = creatorId;
         this.date = date;
         this.time = time;
         this.aula = aula;
